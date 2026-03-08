@@ -51,7 +51,7 @@ Provide a structured response with:
 2. **Warning Signs to Watch** – Symptoms requiring emergency care
 3. **Home Monitoring Tips** – Checking breathing rate, fever, feeding
 4. **Dietary & Hydration** – Practical guidance
-
+5. **Answer in 2 sentences**
 Keep language simple enough for a non-medical caregiver.
 End with a clear disclaimer that this is not a medical diagnosis.`;
 

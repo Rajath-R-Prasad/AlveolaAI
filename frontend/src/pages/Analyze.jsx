@@ -78,7 +78,7 @@ export default function Analyze() {
           Chest Radiograph Analysis
         </h2>
         <p className="text-sm text-muted mb-12 leading-relaxed max-w-xl">
-          JPEG · PNG · DICOM · Max 10 MB · Patient data is never stored server-side.
+          JPEG · PNG · Max 10 MB · Patient data is never stored server-side.
         </p>
 
         {error && (
@@ -116,7 +116,7 @@ export default function Analyze() {
                 <h3 className="font-serif text-xl font-bold text-cream mb-2">Drop your X-ray here</h3>
                 <p className="text-sm text-muted mb-6">or click to browse</p>
                 <div className="flex gap-2">
-                  {["JPEG", "PNG", "DICOM"].map((f) => (
+                  {["JPEG", "PNG"].map((f) => (
                     <span key={f} className="px-3 py-1 border border-border rounded-full text-[11px] text-muted font-semibold">
                       {f}
                     </span>

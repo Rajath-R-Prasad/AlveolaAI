@@ -63,14 +63,14 @@ export default function Results() {
           </div>
         </div>
 
-        {/* Alert banner */}
-        {/* <div className={`flex items-center gap-4 p-4 rounded-xl border mb-6 ${sev.bg} ${sev.border}`}>
+        {/*Alert banner */}
+         <div className={`flex items-center gap-4 p-4 rounded-xl border mb-6 ${sev.bg} ${sev.border}`}>
           <span className="text-2xl">{sev.icon}</span>
           <div>
             <p className={`font-bold text-sm mb-0.5 ${sev.color}`}>{result.severity.label}</p>
             <p className="text-xs text-muted">{sev.label}</p>
           </div>
-        </div> */}
+        </div>
 
         {/* Main grid */}
         <div className="grid grid-cols-2 gap-6 mb-6">

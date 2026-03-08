@@ -16,3 +16,4 @@ pydantic-settings==2.2.1
 python-dotenv==1.0.1
 sqlalchemy==2.0.27
 grad-cam==1.4.8
+segmentation-models-pytorch==0.3.3
