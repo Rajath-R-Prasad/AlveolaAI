@@ -49,7 +49,7 @@ class PneumoUNet(nn.Module):
     def forward(self, x):
         features    = self.unet.encoder(x)
         bottleneck  = features[-1]
-        decoder_out = self.unet.decoder(features)        # UnetPlusPlus takes list
+        decoder_out = self.unet.decoder(*features)       # smp decoder expects *features (varargs)
         seg_logits  = self.unet.segmentation_head(decoder_out)
         seg_mask    = self.sigmoid(seg_logits)
         cls_logits  = self.cls_head(bottleneck)

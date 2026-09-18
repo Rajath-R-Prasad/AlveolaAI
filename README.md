@@ -91,8 +91,42 @@ NumPy
 Grad-CAM  
 
 ## Deployment
-Vercel (Frontend Hosting)  
-Render (Backend Hosting)
+- **Docker Compose** (Production multi-container stack)
+- **AWS EC2 / VPS** (Linux Ubuntu with Nginx reverse proxy + FastAPI CPU PyTorch)
+- **Vercel / Render** (Alternative serverless hosting)
+
+---
+
+# Docker & EC2 Deployment
+
+### 1. Quick Start with Docker Compose
+```bash
+# Clone repository
+git clone <repo-url>
+cd AlveolaAI
+
+# Copy environment template
+cp .env.example .env
+
+# Build and start services (Backend on :8000, Frontend + Nginx on :80)
+docker compose up -d --build
+```
+
+### 2. Deploying on AWS EC2 VPS
+1. **Launch EC2 Instance**: Recommended `t3.medium` or `t3a.medium` (2 vCPU, 4GB RAM) with Ubuntu 22.04/24.04 LTS.
+2. **Security Group**: Open Inbound ports:
+   - `80` (HTTP for Web UI)
+   - `443` (HTTPS for SSL)
+   - `22` (SSH)
+   - `8000` (Optional direct API access)
+3. **Run Automated Deployment**:
+```bash
+git clone <repo-url>
+cd AlveolaAI
+chmod +x deploy-ec2.sh
+./deploy-ec2.sh
+```
+4. Access the web interface at `http://<EC2-PUBLIC-IP>`.
 
 ---
 

@@ -1,0 +1,12 @@
+.git/
+.gitignore
+.vscode/
+.idea/
+**/__pycache__/
+**/*.py[cod]
+**/venv/
+**/.venv/
+**/node_modules/
+**/dist/
+**/notebooks/
+*.log

@@ -46,6 +46,7 @@ class ModelInfo(BaseModel):
 
 class AdvancedMetrics(BaseModel):
     """Returned only when mode='doctor'."""
+    model_config = {"protected_namespaces": ()}
     map_score:    float
     iou_scores:   List[float]
     region_stats: List[RegionStat]
@@ -82,7 +83,9 @@ class FeedbackResponse(BaseModel):
 # ─── Health ───────────────────────────────────────────────────────────────────
 
 class HealthResponse(BaseModel):
+    model_config = {"protected_namespaces": ()}
     status:        str         # "ok" | "degraded"
     model_loaded:  bool
     gpu_available: bool
     version:       str
+

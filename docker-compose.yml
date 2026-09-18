@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: alveolaai-backend
+    restart: unless-stopped
+    environment:
+      - MODEL_PATH=${MODEL_PATH:-models/best_model.pt}
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-10}
+      - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.45}
+      - FEEDBACK_LOG=/app/data/feedback_log.jsonl
+    volumes:
+      - backend-data:/app/data
+      - backend-reports:/tmp/reports
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    networks:
+      - alveolaai-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_BASE_URL=${VITE_API_BASE_URL:-}
+        - VITE_GEMINI_API_KEY=${VITE_GEMINI_API_KEY:-}
+    container_name: alveolaai-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - alveolaai-net
+
+volumes:
+  backend-data:
+    driver: local
+  backend-reports:
+    driver: local
+
+networks:
+  alveolaai-net:
+    driver: bridge
