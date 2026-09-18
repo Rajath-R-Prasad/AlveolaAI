@@ -2,7 +2,6 @@
 from fastapi import APIRouter
 from schemas.models import HealthResponse
 from utils import inference
-import torch
 
 router = APIRouter()
 
@@ -11,6 +10,6 @@ async def health():
     return HealthResponse(
         status="ok" if inference.MODEL_LOADED else "degraded",
         model_loaded=inference.MODEL_LOADED,
-        gpu_available=torch.cuda.is_available(),
+        gpu_available=False,
         version="1.0.0",
     )

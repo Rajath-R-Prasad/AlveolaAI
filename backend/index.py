@@ -1,32 +1,29 @@
 """
-AlveolaAI FastAPI Backend
-Run: uvicorn main:app --reload --port 8000
+AlveolaAI FastAPI Backend (ONNX Engine)
+Run: uvicorn index:app --reload --port 8000
 """
 import os
 import gc
-import torch
-
-# Deep learning memory savings for Render's 512MB RAM limit
-os.environ["MALLOC_TRIM_THRESHOLD_"] = "100000"
-torch.set_num_threads(1)
-torch.set_grad_enabled(False)
-
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
 from routes import analyze, feedback, health
 from utils.inference import load_model
 
+# Optimize memory allocation
+os.environ["MALLOC_TRIM_THRESHOLD_"] = "100000"
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Load PyTorch model on startup
-    load_model(os.getenv("MODEL_PATH", "models/best_model.pt"))
-    gc.collect()  # Free any temporary memory used during model load
+    # Load ONNX model on startup
+    model_path = os.getenv("MODEL_PATH", "models/best_model.onnx")
+    load_model(model_path)
+    gc.collect()
     yield
 
 app = FastAPI(
     title="AlveolaAI API",
-    description="AI-powered chest X-ray pneumonia detection",
+    description="AI-powered chest X-ray pneumonia detection (ONNX Engine)",
     version="1.0.0",
     lifespan=lifespan,
 )

@@ -8,7 +8,7 @@ services:
     container_name: alveolaai-backend
     restart: unless-stopped
     environment:
-      - MODEL_PATH=${MODEL_PATH:-models/best_model.pt}
+      - MODEL_PATH=${MODEL_PATH:-models/best_model.onnx}
       - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-10}
       - CONFIDENCE_THRESHOLD=${CONFIDENCE_THRESHOLD:-0.45}
       - FEEDBACK_LOG=/app/data/feedback_log.jsonl
