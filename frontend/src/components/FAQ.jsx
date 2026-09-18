@@ -39,19 +39,19 @@ export default function FAQ() {
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
-            className="w-full px-6 py-5 flex items-center justify-between
-                       bg-transparent text-left cursor-pointer"
+            className="w-full px-4 sm:px-6 py-4 sm:py-5 flex items-center justify-between
+                       bg-transparent text-left cursor-pointer border-none"
           >
-            <span className="text-sm font-semibold text-text pr-4">{f.q}</span>
+            <span className="text-xs sm:text-sm font-semibold text-text pr-3 sm:pr-4">{f.q}</span>
             <span
-              className="text-coral text-xl flex-shrink-0 transition-transform duration-300"
+              className="text-coral text-lg sm:text-xl flex-shrink-0 transition-transform duration-300"
               style={{ transform: open === i ? "rotate(45deg)" : "rotate(0)" }}
             >
               +
             </span>
           </button>
           {open === i && (
-            <p className="px-6 pb-5 text-sm text-muted leading-relaxed animate-fadeIn">
+            <p className="px-4 sm:px-6 pb-4 sm:pb-5 text-xs sm:text-sm text-muted leading-relaxed animate-fadeIn">
               {f.a}
             </p>
           )}
@@ -60,3 +60,4 @@ export default function FAQ() {
     </div>
   );
 }
+

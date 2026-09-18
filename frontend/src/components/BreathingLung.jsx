@@ -1,12 +1,12 @@
 export default function BreathingLung() {
   return (
-    <div className="relative w-80 h-80">
+    <div className="relative w-64 h-64 sm:w-80 sm:h-80">
       {[1, 2, 3].map((i) => (
         <div
           key={i}
           className="absolute rounded-full border border-coral/10 animate-breathe"
           style={{
-            inset: -i * 28,
+            inset: -i * 20,
             animationDelay: `${i * 0.2}s`,
             animationDuration: `${2 + i * 0.6}s`,
           }}
@@ -14,7 +14,7 @@ export default function BreathingLung() {
       ))}
       <svg
         viewBox="0 0 300 300"
-        className="w-80 h-80 animate-breathe drop-shadow-[0_0_32px_rgba(232,97,74,0.25)]"
+        className="w-64 h-64 sm:w-80 sm:h-80 animate-breathe drop-shadow-[0_0_32px_rgba(232,97,74,0.25)]"
       >
         <defs>
           <radialGradient id="lg" cx="50%" cy="40%" r="60%">
@@ -60,3 +60,4 @@ export default function BreathingLung() {
     </div>
   );
 }
+

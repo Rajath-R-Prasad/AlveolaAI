@@ -24,34 +24,34 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
   const renderResult = (text) =>
     text.split("\n").map((line, i) => {
       if (line.startsWith("**") && line.endsWith("**"))
-        return <p key={i} className="font-bold text-sage mt-4 mb-1 text-base">{line.replace(/\*\*/g, "")}</p>;
+        return <p key={i} className="font-bold text-sage mt-4 mb-1 text-sm sm:text-base">{line.replace(/\*\*/g, "")}</p>;
       if (line.trim().startsWith("-"))
         return (
-          <p key={i} className="pl-4 text-muted text-sm mb-1">
+          <p key={i} className="pl-3 sm:pl-4 text-muted text-xs sm:text-sm mb-1">
             <span className="text-coral mr-2">·</span>
             {line.replace(/^-\s*/, "")}
           </p>
         );
       return line.trim()
-        ? <p key={i} className="text-sm text-text mb-1">{line}</p>
+        ? <p key={i} className="text-xs sm:text-sm text-text mb-1">{line}</p>
         : <div key={i} className="h-2" />;
     });
 
   return (
     <div className="rounded-2xl overflow-hidden border border-sage/30 bg-gradient-to-br from-sage/8 to-sage/3">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-sage/20 flex items-center gap-3">
-        <span className="text-2xl">💊</span>
+      <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-sage/20 flex items-center gap-3">
+        <span className="text-xl sm:text-2xl">💊</span>
         <div>
-          <p className="font-serif text-lg font-bold text-sage">Treatment Guidance</p>
-          <p className="text-xs text-muted">{severity}</p>
+          <p className="font-serif text-base sm:text-lg font-bold text-sage">Treatment Guidance</p>
+          <p className="text-[11px] sm:text-xs text-muted">{severity}</p>
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {!result && !loading && (
           <>
-            <p className="text-sm text-muted mb-4 leading-relaxed">
+            <p className="text-xs sm:text-sm text-muted mb-4 leading-relaxed">
               Generate caregiver-friendly care instructions based on the detected severity.
               Covers home care steps, warning signs, and monitoring tips.
             </p>
@@ -60,7 +60,7 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
               <button
                 onClick={handleGenerate}
                 disabled={!apiKey.trim() || loading}
-                className="btn-coral px-6 py-3 text-sm rounded-xl"
+                className="btn-coral px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm rounded-xl"
               >
                 Get Guidance
               </button>
@@ -73,7 +73,7 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
             )}
 
             {error && (
-              <div className="mt-3 p-3 rounded-lg bg-coral/10 border border-coral/30 text-coral text-sm">
+              <div className="mt-3 p-3 rounded-lg bg-coral/10 border border-coral/30 text-coral text-xs sm:text-sm">
                 {error}
               </div>
             )}
@@ -81,9 +81,9 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
         )}
 
         {loading && (
-          <div className="text-center py-8">
-            <div className="w-10 h-10 rounded-full border-2 border-border border-t-sage animate-spinSlow mx-auto mb-4" />
-            <p className="text-muted text-sm">Get recommendation on quick care</p>
+          <div className="text-center py-6 sm:py-8">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-border border-t-sage animate-spinSlow mx-auto mb-4" />
+            <p className="text-muted text-xs sm:text-sm">Generating quick care recommendations…</p>
           </div>
         )}
 
@@ -93,7 +93,7 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
             <div className="mt-5 p-3 rounded-lg bg-coral/8 border border-coral/20 text-xs text-coral">
               ⚕ AI-generated guidance only. Always consult a qualified physician before treatment decisions.
             </div>
-            <button className="btn-ghost mt-3 text-xs"
+            <button className="btn-ghost mt-3 text-xs py-2 px-4"
               onClick={() => { setResult(null); setError(null); }}>
               Regenerate
             </button>
@@ -103,3 +103,4 @@ export default function GeminiCard({ severity, patientAge, patientNotes }) {
     </div>
   );
 }
+

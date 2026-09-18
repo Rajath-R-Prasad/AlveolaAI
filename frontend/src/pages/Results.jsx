@@ -35,60 +35,60 @@ export default function Results() {
   const sev = SEV[result.severity.label] || SEV.Normal;
 
   return (
-    <div className="pt-16 min-h-screen">
+    <div className="pt-16 min-h-screen w-full overflow-x-hidden">
       {showFb && (
         <FeedbackModal requestId={result.request_id} onClose={() => setFb(false)} />
       )}
 
-      <section className="px-16 py-12 max-w-[1200px] mx-auto pb-20">
+      <section className="px-4 sm:px-8 lg:px-16 py-6 sm:py-12 max-w-[1200px] mx-auto pb-16 sm:pb-20">
         {/* Header */}
-        <div className="flex items-start justify-between mb-6 flex-wrap gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
           <div>
-            <p className="text-xs text-coral font-bold uppercase tracking-widest mb-1">
+            <p className="text-[11px] sm:text-xs text-coral font-bold uppercase tracking-widest mb-1">
               — Analysis Complete · {result.request_id}
             </p>
-            <h2 className="font-serif text-[clamp(24px,3vw,40px)] font-bold text-cream">
+            <h2 className="font-serif text-[clamp(20px,3vw,36px)] font-bold text-cream">
               {patient.name || "Patient"}&apos;s Chest Radiograph Report
             </h2>
           </div>
-          <div className="flex gap-2 flex-wrap items-center">
-            <span className={`px-4 py-1.5 rounded-full text-xs font-bold border ${sev.color} ${sev.bg} ${sev.border}`}>
+          <div className="flex gap-2 flex-wrap items-center w-full sm:w-auto">
+            <span className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold border ${sev.color} ${sev.bg} ${sev.border}`}>
               {sev.icon} {result.severity.label}
             </span>
-            <button className="btn-ghost text-xs" onClick={() => setFb(true)}>✏ Correct</button>
-            <button className="btn-ghost text-xs"
+            <button className="btn-ghost text-xs py-2 px-3 sm:px-4" onClick={() => setFb(true)}>✏ Correct</button>
+            <button className="btn-ghost text-xs py-2 px-3 sm:px-4"
               onClick={() => { sessionStorage.removeItem("alveolaai_result"); nav("/analyze"); }}>
               + New Scan
             </button>
           </div>
         </div>
 
-        {/*Alert banner */}
-         <div className={`flex items-center gap-4 p-4 rounded-xl border mb-6 ${sev.bg} ${sev.border}`}>
-          <span className="text-2xl">{sev.icon}</span>
+        {/* Alert banner */}
+        <div className={`flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl border mb-6 ${sev.bg} ${sev.border}`}>
+          <span className="text-xl sm:text-2xl flex-shrink-0">{sev.icon}</span>
           <div>
-            <p className={`font-bold text-sm mb-0.5 ${sev.color}`}>{result.severity.label}</p>
-            <p className="text-xs text-muted">{sev.label}</p>
+            <p className={`font-bold text-xs sm:text-sm mb-0.5 ${sev.color}`}>{result.severity.label}</p>
+            <p className="text-[11px] sm:text-xs text-muted">{sev.label}</p>
           </div>
         </div>
 
         {/* Main grid */}
-        <div className="grid grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 items-start">
           {/* X-ray viewer */}
           <div className="card overflow-hidden rounded-2xl">
-            <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-              <h3 className="font-serif text-base font-bold text-cream">Annotated Radiograph</h3>
-              <div className="flex gap-2">
+            <div className="px-4 sm:px-5 py-3 sm:py-4 border-b border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
+              <h3 className="font-serif text-sm sm:text-base font-bold text-cream">Annotated Radiograph</h3>
+              <div className="flex gap-2 flex-wrap">
                 {[["Bounding Boxes", showBbox, setBbox, "coral"], ["Grad-CAM", showHeat, setHeat, "amber"]].map(([l, a, s, c]) => (
                   <button key={l} onClick={() => s(!a)}
-                    className={`px-3 py-1 rounded-full text-[11px] font-semibold border transition-all
-                      ${a ? `bg-${c}/15 border-${c} text-${c}` : "border-border text-muted"}`}>
+                    className={`px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold border transition-all cursor-pointer
+                      ${a ? `bg-${c}/15 border-${c} text-${c}` : "border-border text-muted bg-transparent"}`}>
                     {a ? "✓ " : ""}{l}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="relative bg-black" style={{ aspectRatio: "1 / 1" }}>
+            <div className="relative bg-black w-full" style={{ aspectRatio: "1 / 1" }}>
               <div className="absolute left-0 right-0 h-0.5 z-10 top-0 animate-scanY"
                 style={{ background: "linear-gradient(90deg,transparent,#e8614a,transparent)" }} />
               <XrayCanvas
@@ -103,13 +103,13 @@ export default function Results() {
           {/* Metrics column */}
           <div className="flex flex-col gap-4">
             {/* Severity */}
-            <div className="card p-6 rounded-2xl">
-              <p className="text-[10px] text-muted font-bold uppercase tracking-widest mb-4">Severity Assessment</p>
-              <div className="flex items-baseline gap-3 mb-2">
-                <span className={`font-serif text-5xl font-black ${sev.color}`}>{result.severity.label}</span>
-                <span className="text-sm text-muted">{result.severity.opacity_pct}% lung opacity</span>
+            <div className="card p-5 sm:p-6 rounded-2xl">
+              <p className="text-[10px] text-muted font-bold uppercase tracking-widest mb-3 sm:mb-4">Severity Assessment</p>
+              <div className="flex items-baseline gap-3 mb-2 flex-wrap">
+                <span className={`font-serif text-4xl sm:text-5xl font-black ${sev.color}`}>{result.severity.label}</span>
+                <span className="text-xs sm:text-sm text-muted">{result.severity.opacity_pct}% lung opacity</span>
               </div>
-              <p className="text-sm text-muted mb-4">Confidence: {Math.round(result.severity.confidence * 100)}%</p>
+              <p className="text-xs sm:text-sm text-muted mb-4">Confidence: {Math.round(result.severity.confidence * 100)}%</p>
               <div className="w-full h-1.5 bg-border rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-[1.4s] ease-out"
@@ -119,14 +119,14 @@ export default function Results() {
                   }}
                 />
               </div>
-              <div className="flex justify-between text-[9px] text-muted mt-1.5 uppercase tracking-wider">
+              <div className="flex justify-between text-[8px] sm:text-[9px] text-muted mt-1.5 uppercase tracking-wider">
                 <span>0% Normal</span><span>15% Mild</span><span>40% Moderate</span><span>100% Severe</span>
               </div>
             </div>
 
             {/* Detections */}
-            {result.detections.map((d, i) => (
-              <div key={d.id} className="card p-5 rounded-2xl border-l-[3px] border-l-coral">
+            {result.detections.map((d) => (
+              <div key={d.id} className="card p-4 sm:p-5 rounded-2xl border-l-[3px] border-l-coral">
                 <div className="flex justify-between items-center mb-2">
                   <div>
                     <p className="font-serif text-sm font-bold text-cream">Region {d.id} — {d.label}</p>
@@ -134,7 +134,7 @@ export default function Results() {
                       bbox [{d.bbox.join(", ")}] · {d.area_px?.toLocaleString()} px²
                     </p>
                   </div>
-                  <span className="font-serif text-3xl font-black text-coral">
+                  <span className="font-serif text-2xl sm:text-3xl font-black text-coral">
                     {Math.round(d.confidence * 100)}%
                   </span>
                 </div>
@@ -146,16 +146,16 @@ export default function Results() {
             ))}
 
             {/* Quick summary */}
-            <div className="card p-5 rounded-2xl">
+            <div className="card p-4 sm:p-5 rounded-2xl">
               {[
                 ["Overall Confidence", `${Math.round(result.severity.confidence * 100)}%`, "text-coral"],
                 ["Regions Detected", result.detections.length, ""],
                 ["Analysis Mode", mode === "doctor" ? "Doctor Mode" : "Quick Scan", ""],
                 ["Status", result.status?.replace(/_/g, " "), ""],
               ].map(([l, v, c]) => (
-                <div key={l} className="flex justify-between py-2.5 border-b border-border last:border-0">
+                <div key={l} className="flex justify-between items-center py-2 sm:py-2.5 border-b border-border last:border-0">
                   <span className="text-xs text-muted font-semibold">{l}</span>
-                  <span className={`text-sm font-bold ${c || "text-text"}`}>{v}</span>
+                  <span className={`text-xs sm:text-sm font-bold ${c || "text-text"}`}>{v}</span>
                 </div>
               ))}
             </div>
@@ -164,12 +164,12 @@ export default function Results() {
 
         {/* Doctor mode panel */}
         {mode === "doctor" && result.advanced && (
-          <div className="card p-7 rounded-2xl mb-6 border-sage/30">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="card p-5 sm:p-7 rounded-2xl mb-6 border-sage/30">
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
               <div className="w-2 h-2 rounded-full bg-sage animate-halo" />
-              <h3 className="font-serif text-lg font-bold text-sage">Doctor Mode — Advanced Metrics</h3>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-sage">Doctor Mode — Advanced Metrics</h3>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
               {[
                 ["mAP Score", result.advanced.map_score?.toFixed(3)],
                 ["IoU Region 1", result.advanced.iou_scores?.[0]?.toFixed(3)],
@@ -178,9 +178,9 @@ export default function Results() {
                 ["Threshold", result.advanced.model_info?.threshold],
                 ["Regions", result.advanced.region_stats?.length],
               ].map(([k, v]) => (
-                <div key={k} className="bg-surf border border-border rounded-xl p-4">
+                <div key={k} className="bg-surf border border-border rounded-xl p-3.5 sm:p-4">
                   <p className="text-[10px] text-muted font-bold uppercase tracking-widest mb-1">{k}</p>
-                  <p className="font-serif text-xl font-bold text-sage">{v ?? "—"}</p>
+                  <p className="font-serif text-lg sm:text-xl font-bold text-sage">{v ?? "—"}</p>
                 </div>
               ))}
             </div>
@@ -197,24 +197,25 @@ export default function Results() {
         </div>
 
         {/* PDF report */}
-        <div className="p-6 rounded-2xl flex items-center justify-between flex-wrap gap-4"
+        <div className="p-5 sm:p-6 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
           style={{ background: "linear-gradient(135deg,#1a2540,#141d2e)", border: "1px solid #253450" }}>
           <div>
             <p className="font-serif text-base font-bold text-cream mb-1">📄 Clinical PDF Report Ready</p>
-            <p className="text-xs text-muted">
+            <p className="text-xs text-muted leading-relaxed">
               Annotated radiograph · severity grade · confidence scores · bounding box data
               {mode === "doctor" ? " · mAP · IoU · region stats" : ""}
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2.5 sm:gap-3 flex-wrap w-full sm:w-auto">
             <a href={reportUrl(result.report_token)} target="_blank" rel="noreferrer"
-              className="btn-coral text-sm py-3 px-6 no-underline">
+              className="btn-coral text-xs sm:text-sm py-2.5 sm:py-3 px-5 sm:px-6 no-underline text-center justify-center flex-1 sm:flex-none">
               ↓ Download PDF
             </a>
-            <button className="btn-ghost text-xs" onClick={() => setFb(true)}>✏ Correction</button>
+            <button className="btn-ghost text-xs py-2.5 sm:py-3 px-4 justify-center" onClick={() => setFb(true)}>✏ Correction</button>
           </div>
         </div>
       </section>
     </div>
   );
 }
+

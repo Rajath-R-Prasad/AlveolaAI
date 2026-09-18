@@ -12,6 +12,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -20,6 +21,8 @@
     font-family: "Nunito Sans", sans-serif;
     overflow-x: hidden;
     line-height: 1.7;
+    width: 100%;
+    min-height: 100%;
   }
 
   ::-webkit-scrollbar {
@@ -34,15 +37,15 @@
 
 @layer components {
   .btn-coral {
-    @apply inline-flex items-center gap-2 px-8 py-3.5 bg-coral text-white font-semibold text-sm rounded-full border-none cursor-pointer transition-all duration-200 shadow-[0_8px_32px_#e8614a59] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_#e8614a80] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none;
+    @apply inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-coral text-white font-semibold text-xs sm:text-sm rounded-full border-none cursor-pointer transition-all duration-200 shadow-[0_8px_32px_#e8614a59] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_#e8614a80] disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none;
   }
 
   .btn-outline-coral {
-    @apply inline-flex items-center gap-2 px-8 py-3.5 bg-transparent text-coral font-semibold text-sm rounded-full border-2 border-coral cursor-pointer transition-all duration-200 hover:bg-coral hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-transparent text-coral font-semibold text-xs sm:text-sm rounded-full border-2 border-coral cursor-pointer transition-all duration-200 hover:bg-coral hover:text-white;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-transparent text-muted font-semibold text-sm rounded-full border border-border cursor-pointer transition-all duration-200 hover:border-coral hover:text-coral;
+    @apply inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 bg-transparent text-muted font-semibold text-xs sm:text-sm rounded-full border border-border cursor-pointer transition-all duration-200 hover:border-coral hover:text-coral;
   }
 
   .card {
@@ -54,10 +57,10 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-surf border border-border rounded-lg text-cream font-sans text-sm outline-none transition-colors duration-200 focus:border-coral placeholder:text-muted;
+    @apply w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-surf border border-border rounded-lg text-cream font-sans text-xs sm:text-sm outline-none transition-colors duration-200 focus:border-coral placeholder:text-muted;
   }
 
   .section-tag {
-    @apply inline-block text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border;
+    @apply inline-block text-[10px] sm:text-xs font-bold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border;
   }
 }

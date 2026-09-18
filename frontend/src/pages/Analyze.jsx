@@ -62,7 +62,7 @@ export default function Analyze() {
   const upd = (k) => (e) => setPatient((p) => ({ ...p, [k]: e.target.value }));
 
   return (
-    <div className="pt-16 min-h-screen">
+    <div className="pt-16 min-h-screen w-full overflow-x-hidden">
       {loading && <LoadingOverlay step={loadStep} />}
       {showConfirm && preview && (
         <ConfirmModal
@@ -72,12 +72,12 @@ export default function Analyze() {
         />
       )}
 
-      <section className="px-16 py-16 max-w-5xl mx-auto">
+      <section className="px-4 sm:px-8 lg:px-16 py-8 sm:py-16 max-w-5xl mx-auto">
         <p className="text-xs font-bold text-coral uppercase tracking-widest mb-2">— Upload</p>
-        <h2 className="font-serif text-[clamp(26px,4vw,48px)] font-bold text-cream mb-3">
+        <h2 className="font-serif text-[clamp(24px,4vw,48px)] font-bold text-cream mb-2 sm:mb-3">
           Chest Radiograph Analysis
         </h2>
-        <p className="text-sm text-muted mb-12 leading-relaxed max-w-xl">
+        <p className="text-xs sm:text-sm text-muted mb-8 sm:mb-12 leading-relaxed max-w-xl">
           JPEG · PNG · Max 10 MB · Patient data is never stored server-side.
         </p>
 
@@ -87,7 +87,7 @@ export default function Analyze() {
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {/* ── Drop zone ── */}
           <div
             onDragEnter={() => setDragging(true)}
@@ -95,8 +95,8 @@ export default function Analyze() {
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => { e.preventDefault(); setDragging(false); handleFile(e.dataTransfer.files[0]); }}
             onClick={() => fileRef.current?.click()}
-            className={`border-2 rounded-2xl p-12 text-center cursor-pointer transition-all duration-300
-              flex flex-col items-center justify-center min-h-[380px]
+            className={`border-2 rounded-2xl p-6 sm:p-10 text-center cursor-pointer transition-all duration-300
+              flex flex-col items-center justify-center min-h-[280px] sm:min-h-[380px]
               ${dragging ? "border-coral bg-coral/4 shadow-[inset_0_0_40px_rgba(232,97,74,.06)]"
                 : "border-dashed border-border bg-card hover:border-coral/40"}`}
           >
@@ -106,15 +106,15 @@ export default function Analyze() {
             {preview ? (
               <>
                 <img src={preview} alt="preview"
-                  className="max-w-full max-h-[260px] object-contain rounded-xl mb-4" />
+                  className="max-w-full max-h-[220px] sm:max-h-[260px] object-contain rounded-xl mb-4" />
                 <p className="text-sm text-coral font-semibold">✓ Click to replace</p>
               </>
             ) : (
               <>
-                <div className="w-20 h-20 rounded-full bg-coral/10 border-2 border-dashed border-coral/30
-                                flex items-center justify-center text-4xl mb-6">🩻</div>
-                <h3 className="font-serif text-xl font-bold text-cream mb-2">Drop your X-ray here</h3>
-                <p className="text-sm text-muted mb-6">or click to browse</p>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-coral/10 border-2 border-dashed border-coral/30
+                                flex items-center justify-center text-3xl sm:text-4xl mb-4 sm:mb-6">🩻</div>
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-cream mb-2">Drop your X-ray here</h3>
+                <p className="text-xs sm:text-sm text-muted mb-4 sm:mb-6">or click to browse</p>
                 <div className="flex gap-2">
                   {["JPEG", "PNG"].map((f) => (
                     <span key={f} className="px-3 py-1 border border-border rounded-full text-[11px] text-muted font-semibold">
@@ -127,15 +127,15 @@ export default function Analyze() {
           </div>
 
           {/* ── Patient form ── */}
-          <div className="card p-8 rounded-2xl">
-            <h3 className="font-serif text-xl font-bold text-cream mb-1">Patient Information</h3>
-            <p className="text-xs text-muted mb-6">All fields are optional</p>
+          <div className="card p-5 sm:p-8 rounded-2xl">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-cream mb-1">Patient Information</h3>
+            <p className="text-xs text-muted mb-5 sm:mb-6">All fields are optional</p>
 
             {/* Mode toggle */}
-            <div className="flex border border-border rounded-xl overflow-hidden mb-6">
+            <div className="flex border border-border rounded-xl overflow-hidden mb-5 sm:mb-6">
               {[["quick", "Quick Scan"], ["doctor", "Doctor Mode"]].map(([m, l]) => (
                 <button key={m} onClick={() => setMode(m)}
-                  className={`flex-1 py-3 text-sm font-semibold border-none cursor-pointer transition-all
+                  className={`flex-1 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold border-none cursor-pointer transition-all
                     ${mode === m ? "bg-coral text-white" : "bg-transparent text-muted hover:text-text"}`}>
                   {l}
                 </button>
@@ -149,7 +149,7 @@ export default function Analyze() {
               <input className="input-field" placeholder="Anonymous" value={patient.name} onChange={upd("name")} />
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
               <div>
                 <label className="block text-xs text-muted font-bold uppercase tracking-widest mb-2">Age</label>
                 <input className="input-field" type="number" placeholder="—"
@@ -176,12 +176,12 @@ export default function Analyze() {
             </div>
 
             {mode === "doctor" && (
-              <div className="p-3 rounded-xl bg-sage/6 border border-sage/20 text-sage text-sm mb-4">
+              <div className="p-3 rounded-xl bg-sage/6 border border-sage/20 text-sage text-xs sm:text-sm mb-4">
                 ✓ Doctor Mode returns mAP scores, IoU, intensity statistics, model metadata.
               </div>
             )}
 
-            <button className="btn-coral w-full justify-center text-base py-4"
+            <button className="btn-coral w-full justify-center text-sm sm:text-base py-3.5 sm:py-4"
               disabled={!file} onClick={() => setConfirm(true)}>
               Analyse Radiograph →
             </button>
@@ -194,3 +194,4 @@ export default function Analyze() {
     </div>
   );
 }
+
